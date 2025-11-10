@@ -1,0 +1,46 @@
+<html>
+    <body>
+        
+<h2>Today's Patient Records</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Contact Number</th>
+                <th>Gender</th>
+                <th>Specialist</th>
+            </tr>
+        </thead>
+        <tbody id="patientTableBody"></tbody>
+    </table>
+
+    <script>
+        const today = new Date().toDateString();
+        const lastSavedDate = localStorage.getItem('lastSavedDate');
+
+        if (lastSavedDate !== today) {
+            localStorage.setItem('PatientList', JSON.stringify([]));
+            localStorage.setItem('TokenCounter', '1');
+            localStorage.setItem('lastSavedDate', today);
+        }
+
+        const patientList = JSON.parse(localStorage.getItem('PatientList')) || [];
+        const tableBody = document.getElementById('patientTableBody');
+
+        patientList.forEach(patient => {
+            const row = document.createElement('tr');
+            Object.values(patient).forEach(value => {
+                const cell = document.createElement('td');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+            tableBody.appendChild(row);
+        });
+    </script>
+
+    </body>
+    
+</html>

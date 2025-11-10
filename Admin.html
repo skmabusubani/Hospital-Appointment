@@ -1,0 +1,33 @@
+<html>
+    <head>
+
+    </head>
+    
+    <body>
+        <h1>Enter Admin Credentials</h1>
+        <div>
+            UserName: <input id = 'username' type="text" placeholder="Enter User Name">
+            Password: <input id = 'password' type="password" placeholder="Enter Password">
+            
+            <button onclick="Validate()">Submit</button>
+
+            <p id = 'errormsg'></p>
+        </div>
+        
+        <script>
+            
+            function Validate(){
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                if(username === 'Admin' && password === 'Admin123'){
+                    window.location.href = "./Userdetails.html";
+                }else{
+                    document.getElementById('errormsg').textContent = "Enter correct Credentilas";
+                    document.getElementById('username').value = "";
+                    document.getElementById('password').value = "";
+                    document.getElementById('username').focus();
+                }
+            }
+        </script>
+    </body>
+</html>

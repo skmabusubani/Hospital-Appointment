@@ -1,0 +1,70 @@
+<html>
+    <head>
+
+
+    </head>
+
+    <body>
+        <h1>Healty Hospital Appointment System Form</h1>
+        <div>
+            Full Name: <input id = "name" type="text" placeholder="Enter Full Name" required>
+            Age: <input id = "age" type="text" placeholder="Enter Age" required>
+            Address: <input id = "address" type="text" placeholder="Enter Address" >
+            Contact Number: <input id = "number" type="number" placeholder="Enter Mobile number" required>
+            
+            <label>
+                  Gender:
+                  <input  type="radio" name="gender" value="Male"> Male
+                  <input type="radio"  name="gender" value="Female"> Female
+            </label>
+
+            Specialist:
+            <select id = 'specialist'>
+                <option>Cardiologists</option>
+                <option>Dermatologists</option>
+                <option>Hematologists</option>
+            </select>
+            <button type="button" onclick="Token()">Submit</button>
+        </div>
+
+        <script>
+            function Token(){
+                const Name = document.getElementById('name').value;
+                const Age = document.getElementById('age').value;
+                const Address = document.getElementById('address').value;
+                const Number = document.getElementById('number').value;
+                const Gender = document.querySelector('input[name="gender"]:checked')?.value;
+                const Specialist = document.getElementById('specialist').value;
+
+                const today = new Date().toDateString();
+                const lastsavedate = localStorage.getItem('lastsavedate');
+
+                if(lastsavedate != today){
+                    localStorage.setItem('PatientList', JSON.stringify([]));
+                    localStorage.setItem('TokenCount', '1');
+                    localStorage.setItem('lastsavedate','today');
+                }
+
+                const PatientList = JSON.parse(localStorage.getItem('PatientList')) || [];
+                let Token = parseInt(localStorage.getItem('TokenCount')) || 1;
+
+                const Patient = {
+                    Token : Token,
+                    Name : Name,
+                    Age : Age,
+                    Address : Address,
+                    Number : Number,
+                    Gender : Gender,
+                    Specialist : Specialist
+
+                };
+
+                PatientList.push(Patient);
+                localStorage.setItem('PatientList', JSON.stringify(PatientList));
+                localStorage.setItem('TokenCount',(token + 1).toString());
+                
+                
+            }
+        </script>
+    </body>
+</html>
